@@ -1,7 +1,8 @@
-add_library(MandelbrotSetLib INTERFACE)
+add_library(MandelbrotSetLib
+    pgm.c)
 
-target_link_libraries(MandelbrotSetLib INTERFACE
+target_link_libraries(MandelbrotSetLib PUBLIC
     m
 )
 
-target_include_directories(MandelbrotSetLib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(MandelbrotSetLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

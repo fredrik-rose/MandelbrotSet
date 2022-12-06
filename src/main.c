@@ -1,5 +1,6 @@
 #include <MandelbrotSet/complex.h>
 #include <MandelbrotSet/image.h>
+#include <MandelbrotSet/pgm.h>
 
 #include <stdint.h>
 #include <stdio.h>
@@ -36,6 +37,8 @@ int main(int argv, char *argc[])
     const uint16_t pixel = IMG_get_pixel(&image, 1, 2);
 
     printf("pixel: %u\n", pixel);
+
+    PGM_save(&image, 255U, "mandelbrot.pgm");
 
     free(image.pixels);
 }
