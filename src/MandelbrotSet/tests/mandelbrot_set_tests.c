@@ -6,7 +6,7 @@
 
 #define RESOLUTION_X (128)
 #define RESOLUTION_Y (128)
-#define DIVERGE_THRESHOLD (255u)
+#define DIVERGE_THRESHOLD (UINT8_MAX)
 
 int main(int argv, char *argc[])
 {

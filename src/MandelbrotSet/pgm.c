@@ -10,7 +10,7 @@
 
 void PGM_save(
     const struct IMG_Image *image,
-    const uint16_t max_value,
+    const uint8_t max_value,
     const char *file_path)
 {
     FILE *const output = fopen(file_path, "wbe");
@@ -23,7 +23,7 @@ void PGM_save(
     {
         for (int x = 0; x < image->width; ++x)
         {
-            const uint16_t pixel = IMG_get_pixel(image, x, y);
+            const uint8_t pixel = IMG_get_pixel(image, x, y);
 
             fprintf(output, "%d ", pixel);
         }

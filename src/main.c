@@ -7,7 +7,7 @@
 
 #define RESOLUTION_X (7680)
 #define RESOLUTION_Y (5760)
-#define DIVERGE_THRESHOLD (255u)
+#define DIVERGE_THRESHOLD (UINT8_MAX)
 #define MANDELBROT_IMAGE_PATH ("mandelbrot.pgm")
 
 int main(int argv, char *argc[])

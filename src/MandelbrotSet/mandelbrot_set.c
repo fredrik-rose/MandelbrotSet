@@ -26,13 +26,13 @@
  *
  * \return Number of iterations needed until divergence is confirmed, max_iterations if no divergence
  */
-static uint16_t mandelbrot(
+static uint8_t mandelbrot(
     const struct CMPLX_Complex c,
-    const uint16_t max_iterations)
+    const uint8_t max_iterations)
 {
     struct CMPLX_Complex f = c;
 
-    for (uint16_t i = 0U; i < max_iterations; ++i)
+    for (uint8_t i = 0U; i < max_iterations; ++i)
     {
         if (CMPLX_abs(f) > 2.0)
         {
@@ -48,7 +48,7 @@ static uint16_t mandelbrot(
 void MBROT_generate_mandelbrot_set(
     struct IMG_Image *const image,
     const struct MBROT_Range *const range,
-    const uint16_t max_iterations)
+    const uint8_t max_iterations)
 {
     assert(image->width > 0);
     assert(image->height > 0);
@@ -67,7 +67,7 @@ void MBROT_generate_mandelbrot_set(
                 .imag = range->min.imag + (y * y_step)
             };
 
-            const uint16_t pixel = mandelbrot(c, max_iterations);
+            const uint8_t pixel = mandelbrot(c, max_iterations);
 
             IMG_set_pixel(image, x, y, pixel);
         }

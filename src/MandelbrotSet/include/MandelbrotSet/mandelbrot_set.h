@@ -39,6 +39,6 @@ struct MBROT_Range
 void MBROT_generate_mandelbrot_set(
     struct IMG_Image *image,
     const struct MBROT_Range *range,
-    uint16_t max_iterations);
+    uint8_t max_iterations);
 
 #endif /* MANDELBROTSET_MANDELBROTSET_H */

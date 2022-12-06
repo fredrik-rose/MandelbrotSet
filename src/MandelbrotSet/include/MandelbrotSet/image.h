@@ -15,7 +15,7 @@ struct IMG_Image
 {
     int width; /**< The width of the image [pixels] */
     int height; /**< The height of the image [pixels] */
-    uint16_t *pixels; /**< The pixels of the image, must be of length width * height */
+    uint8_t *pixels; /**< The pixels of the image, must be of length width * height */
 };
 
 /**
@@ -30,7 +30,7 @@ static inline void IMG_set_pixel(
     struct IMG_Image *const image,
     const int x,
     const int y,
-    const uint16_t value)
+    const uint8_t value)
 {
     assert(x < image->width);
     assert(y < image->height);
@@ -47,7 +47,7 @@ static inline void IMG_set_pixel(
  *
  * \return The pixel
  */
-static inline uint16_t IMG_get_pixel(
+static inline uint8_t IMG_get_pixel(
     const struct IMG_Image *const image,
     const int x,
     const int y)

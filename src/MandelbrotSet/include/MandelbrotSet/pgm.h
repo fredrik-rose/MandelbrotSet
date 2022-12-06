@@ -18,7 +18,7 @@ struct IMG_Image;
  */
 void PGM_save(
     const struct IMG_Image *image,
-    uint16_t max_value,
+    uint8_t max_value,
     const char *file_path);
 
 #endif /* MANDELBROTSET_PGM_H */
