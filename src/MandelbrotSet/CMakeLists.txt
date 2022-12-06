@@ -7,3 +7,5 @@ target_link_libraries(MandelbrotSetLib PUBLIC
 )
 
 target_include_directories(MandelbrotSetLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_subdirectory(tests)
