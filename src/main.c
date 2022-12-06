@@ -5,8 +5,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#define RESOLUTION_X (3840)
-#define RESOLUTION_Y (3840)
+#define RESOLUTION_X (7680)
+#define RESOLUTION_Y (5760)
 #define DIVERGE_THRESHOLD (255u)
 #define MANDELBROT_IMAGE_PATH ("mandelbrot.pgm")
 
@@ -23,11 +23,11 @@ int main(int argv, char *argc[])
     const struct MBROT_Range range = {
         .min = {
             .real = -2.0,
-            .imag = -2.0
+            .imag = -1.5
         },
         .max = {
             .real = 2.0,
-            .imag = 2.0
+            .imag = 1.5
         }
     };
 
