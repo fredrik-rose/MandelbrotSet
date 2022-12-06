@@ -1,6 +1,9 @@
 #include <MandelbrotSet/complex.h>
+#include <MandelbrotSet/image.h>
 
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argv, char *argc[])
 {
@@ -22,4 +25,17 @@ int main(int argv, char *argc[])
     const double d = CMPLX_abs(c);
 
     printf("(%.2lf + %.2lfi), %.2lf\n", c.real, c.imag, d);
+
+    struct IMG_Image image = {
+        .width = 10,
+        .height = 10,
+        .pixels = calloc(10 * 10, sizeof(*image.pixels))
+    };
+
+    IMG_set_pixel(&image, 1, 2, 3U);
+    const uint16_t pixel = IMG_get_pixel(&image, 1, 2);
+
+    printf("pixel: %u\n", pixel);
+
+    free(image.pixels);
 }
