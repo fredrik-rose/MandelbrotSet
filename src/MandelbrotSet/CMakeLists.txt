@@ -1,4 +1,5 @@
 add_library(MandelbrotSetLib
+    mandelbrot_set.c
     pgm.c)
 
 target_link_libraries(MandelbrotSetLib PUBLIC
