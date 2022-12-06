@@ -1,6 +1,35 @@
 # Mandelbrot Set
 
-A C implementation of the Mandelbrot set.
+A C implementation of the Mandelbrot set. The Mandelbrot set is the set of complex numbers `c` for
+which the function
+
+```
+f(z) = z^2 + c,
+```
+
+with z initialized as
+
+```
+z = 0,
+```
+
+does not diverge when iterated as
+
+```
+...f(f(f(0)))
+```
+
+The values `c` inside the set (i.e. the function does not diverge) and the values `c` far from the
+set (i.e. the function diverges quickly) are not very interesting. What makes the Mandelbrot set
+look cool are the values that are not part of the set but very close to the border of the set. These
+will diverge slowly with many iterations required to determine that the values are actually not
+part of the set. By using the number of iterations required to determine if a value is part of the
+Mandelbrot set or not as pixels in an image we get the Mandelbrot set image.
+
+A famous aspect of the Mandelbrot set is that you can "zoom" into the image indefinitely at the
+border of the set to see various cool looking geometrical structures. This simple application does
+not support this but it is possible to do a static zooming by changing the range parameters in the
+main file.
 
 ## Usage
 
