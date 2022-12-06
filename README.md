@@ -1,5 +1,7 @@
 # Mandelbrot Set
 
+<img src="img/mandelbrot.png" width="1000"/>
+
 A C implementation of the Mandelbrot set. The Mandelbrot set is the set of complex numbers `c` for
 which the function
 
@@ -31,6 +33,10 @@ border of the set to see various cool looking geometrical structures. This simpl
 not support this but it is possible to do a static zooming by changing the range parameters in the
 main file.
 
+The color map used for the colored Mandelbrot set image is a variant of the
+[Bernstein polynomials](https://mathworld.wolfram.com/BernsteinPolynomial.html), with inspiration
+from the [Solarian Programmer](https://solarianprogrammer.com/2013/02/28/mandelbrot-set-cpp-11/).
+
 ## Usage
 
 To build and run the application run the following commands.
@@ -44,6 +50,13 @@ ninja
 
 This will generate the Mandelbrot set as an image named `mandelbrot.pgm`. This can be displayed in
 e.g. IrfanView (or any other image tool that supports .pgm images).
+
+The gray scale Mandelbrot set image produced by the MandelbrotSet application is quite nice but to
+really make it beautiful we need to add some colors. This can be done with the following command:
+
+```
+python color.py --input mandelbrot.pgm --output mandelbrot.png
+```
 
 ### Documentation
 

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #define RESOLUTION_X (7680)
-#define RESOLUTION_Y (5760)
+#define RESOLUTION_Y (7680)
 #define DIVERGE_THRESHOLD (UINT8_MAX)
 #define MANDELBROT_IMAGE_PATH ("mandelbrot.pgm")
 
@@ -26,7 +26,7 @@ int main(int argv, char *argc[])
             .imag = -1.5
         },
         .max = {
-            .real = 2.0,
+            .real = 1.0,
             .imag = 1.5
         }
     };
