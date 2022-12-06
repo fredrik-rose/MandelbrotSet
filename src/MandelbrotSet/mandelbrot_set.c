@@ -56,7 +56,7 @@ void MBROT_generate_mandelbrot_set(
     assert(range->max.imag > range->min.imag);
 
     const double x_step = (range->max.real - range->min.real) / image->width;
-    const double y_step = (range->max.imag - range->min.imag) / image->width;
+    const double y_step = (range->max.imag - range->min.imag) / image->height;
 
     for (int y = 0; y < image->height; ++y)
     {
