@@ -9,7 +9,7 @@ which the function
 f(z) = z^2 + c,
 ```
 
-with z initialized as
+with `z` initialized as
 
 ```
 z = 0,
@@ -29,9 +29,9 @@ part of the set. By using the number of iterations required to determine if a va
 Mandelbrot set or not as pixels in an image we get the Mandelbrot set image.
 
 A famous aspect of the Mandelbrot set is that you can "zoom" into the image indefinitely at the
-border of the set to see various cool looking geometrical structures. This simple application does
-not support this but it is possible to do a static zooming by changing the range parameters in the
-main file.
+border of the set to see various cool looking geometrical structures. This property is know as a
+*fractal*. Unfortunately this simple application does not support this but it is possible to do a
+static zooming by changing the range parameters in the main file.
 
 The color map used for the colored Mandelbrot set image is a variant of the
 [Bernstein polynomials](https://mathworld.wolfram.com/BernsteinPolynomial.html), with inspiration
