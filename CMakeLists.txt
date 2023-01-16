@@ -61,7 +61,7 @@ set(MEMORYCHECK_COMMAND_OPTIONS
 
 include(CTest)
 
-add_executable(${PROJECT_NAME} src/main.c)
+add_executable(${PROJECT_NAME}Cpu src/main.c)
 
 add_subdirectory(src)
 

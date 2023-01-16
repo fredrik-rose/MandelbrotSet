@@ -1,48 +1,38 @@
 /**
  * \file
- * \brief Mandelbrot set implementation
+ * \brief Mandelbrot set CPU implementation
  */
 #include <MandelbrotSet/complex.h>
 #include <MandelbrotSet/image.h>
+#include <MandelbrotSet/mandelbrot.h>
 #include <MandelbrotSet/mandelbrot_set.h>
 
 #include <assert.h>
 #include <stdint.h>
+#include <stdlib.h>
 
-/**
- * \brief The Mandelbrot set function
- *
- * Defined as
- *     f(z) = z^2 + c,
- * with z initialized as
- *     z = 0.
- *
- * This function is iterated as
- *     f(f(f(0)))
- * until divergence is confirmed.
- *
- * \param[in] c The c value of the Mandelbrot function
- * \param[in] max_iterations The maximum iterations to determine whether the function diverges or not
- *
- * \return Number of iterations needed until divergence is confirmed, max_iterations if no divergence
- */
-static uint8_t mandelbrot(
-    const struct CMPLX_Complex c,
-    const uint8_t max_iterations)
+struct IMG_Image * MBROT_alloc_mandebrot_set_image(
+    const int width,
+    const int height)
 {
-    struct CMPLX_Complex f = c;
+    const int number_of_pixels = width * height;
 
-    for (uint8_t i = 0U; i < max_iterations; ++i)
-    {
-        if (CMPLX_abs(f) > 2.0)
-        {
-            return i;
-        }
+    struct IMG_Image *const image = calloc(1, sizeof(*image));
+    assert(image != NULL);
 
-        f = CMPLX_add(CMPLX_square(f), c);
-    }
+    image->width = width;
+    image->height = height;
+    image->pixels = calloc((size_t)number_of_pixels, sizeof(*image->pixels));
+    assert(image->pixels != NULL);
 
-    return max_iterations;
+    return image;
+}
+
+void MBROT_free_mandebrot_set_image(
+    struct IMG_Image *const image)
+{
+    free(image->pixels);
+    free(image);
 }
 
 void MBROT_generate_mandelbrot_set(
@@ -67,7 +57,7 @@ void MBROT_generate_mandelbrot_set(
                 .imag = range->min.imag + (y * y_step)
             };
 
-            const uint8_t pixel = mandelbrot(c, max_iterations);
+            const uint8_t pixel = MBROT_mandelbrot(c, max_iterations);
 
             IMG_set_pixel(image, x, y, pixel);
         }

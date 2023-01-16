@@ -9,9 +9,9 @@
 #include <stdio.h>
 
 void PGM_save(
-    const struct IMG_Image *image,
+    const struct IMG_Image *const image,
     const uint8_t max_value,
-    const char *file_path)
+    const char *const file_path)
 {
     FILE *const output = fopen(file_path, "wbe");
 

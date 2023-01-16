@@ -1,7 +1,7 @@
-add_executable(MandelbrotSetLibTests mandelbrot_set_tests.c)
+add_executable(MandelbrotSetCpuLibTests mandelbrot_set_tests.c)
 
-target_link_libraries(MandelbrotSetLibTests PRIVATE
-    MandelbrotSetLib
+target_link_libraries(MandelbrotSetCpuLibTests PRIVATE
+    MandelbrotSetCpuLib
 )
 
-add_test(NAME MandelbrotSetLibTests COMMAND MandelbrotSetLibTests)
+add_test(NAME MandelbrotSetCpuLibTests COMMAND MandelbrotSetCpuLibTests)

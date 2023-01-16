@@ -9,7 +9,6 @@
 
 #include <stdint.h>
 
-struct CMPLX_Complex;
 struct IMG_Image;
 
 /**
@@ -22,7 +21,27 @@ struct MBROT_Range
 };
 
 /**
- * \brief generate a Mandelbrot set
+ * \brief Allocate a Mandelbrot set image
+ *
+ * \param[in] width The width of the image [pixels]
+ * \param[in] height The height of the image [pixels]
+ *
+ * \return The allocated image
+ */
+struct IMG_Image * MBROT_alloc_mandebrot_set_image(
+    int width,
+    int height);
+
+/**
+ * \brief Free a Mandelbrot set image
+ *
+ * \param[in,out] image The image to free
+ */
+void MBROT_free_mandebrot_set_image(
+    struct IMG_Image *image);
+
+/**
+ * \brief Generate a Mandelbrot set
  *
  * All pixels in the image that is equal to max_iterations is part of the Mandelbrot set. All other
  * pixels are not part of the set. Any other value than max_iterations represents the number of

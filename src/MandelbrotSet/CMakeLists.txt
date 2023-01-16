@@ -1,9 +1,15 @@
 add_library(MandelbrotSetLib
-    mandelbrot_set.c
     pgm.c)
+
+add_library(MandelbrotSetCpuLib
+    mandelbrot_set_cpu.c)
 
 target_link_libraries(MandelbrotSetLib PUBLIC
     m
+)
+
+target_link_libraries(MandelbrotSetCpuLib PUBLIC
+    MandelbrotSetLib
 )
 
 target_include_directories(MandelbrotSetLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
