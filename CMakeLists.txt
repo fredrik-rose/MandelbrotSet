@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(MandelbrotSet VERSION 1.0 LANGUAGES C)
+project(MandelbrotSet VERSION 1.0 LANGUAGES C CUDA)
 
 find_program(IWYU_PATH NAMES include-what-you-use iwyu)
 if (NOT IWYU_PATH)
@@ -11,7 +11,8 @@ set(CMAKE_C_INCLUDE_WHAT_YOU_USE "${IWYU_PATH};-I/usr/lib/llvm-10/lib/clang/10.0
 
 set(CMAKE_C_STANDARD 11)
 
-add_compile_options(
+list(
+    APPEND  _gcc_compile_options
     -Wall
     -Wextra
     -Wpedantic
@@ -29,15 +30,37 @@ add_compile_options(
     -Wswitch-enum
     -Wconversion
     -Wunreachable-code
-    "$<$<CONFIG:RELWITHDEBINFO>:-fno-omit-frame-pointer>"
-    "$<$<CONFIG:DEBUG>:-fno-omit-frame-pointer>"
-    "$<$<CONFIG:DEBUG>:-fsanitize=address>"  # Address sanitizer
-    "$<$<CONFIG:DEBUG>:-fsanitize=undefined>"  # Undefined behavior sanitizer
+)
+
+list(
+    APPEND _gcc_relwithdebug_compile_options
+    -fno-omit-frame-pointer
+)
+
+list(
+    APPEND _gcc_debug_compile_options
+    -fno-omit-frame-pointer
+    -fsanitize=address  # Address sanitizer
+    -fsanitize=undefined  # Undefined behavior sanitizer
+)
+
+list(
+    APPEND _debug_link_options
+    -fsanitize=address  # Address sanitizer
+    -fsanitize=undefined  # Undefined behavior sanitize
+)
+
+# To be able to compile device functions for both C and CUDA.
+add_compile_definitions("$<$<COMPILE_LANGUAGE:C>:__device__=>")
+
+add_compile_options(
+    "$<$<COMPILE_LANGUAGE:C>:${_gcc_compile_options}>"
+    "$<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:RELWITHDEBINFO>>:${_gcc_relwithdebug_compile_options}>"
+    "$<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:DEBUG>>:${_gcc_debug_compile_options}>"
 )
 
 add_link_options(
-    "$<$<CONFIG:DEBUG>:-fsanitize=address>"  # Address sanitizer
-    "$<$<CONFIG:DEBUG>:-fsanitize=undefined>"  # Undefined behavior sanitizer
+    "$<$<CONFIG:DEBUG>:${_debug_link_options}>"
 )
 
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
@@ -63,6 +86,8 @@ include(CTest)
 
 add_executable(${PROJECT_NAME}Cpu src/main.c)
 
+add_executable(${PROJECT_NAME}Gpu src/main.c)
+
 add_subdirectory(src)
 
 find_package(Doxygen REQUIRED doxygen dot)
@@ -82,4 +107,6 @@ set(DOXYGEN_REFERENCES_RELATION YES)
 set(DOXYGEN_REFERENCES_LINK_SOURCE NO)
 set(DOXYGEN_CALL_GRAPH YES)
 set(DOXYGEN_CALLER_GRAPH YES)
+set(DOXYGEN_FILE_PATTERNS "*.c,*.h,*.cu,*.md")
+set(DOXYGEN_EXTENSION_MAPPING "cu=c++")
 doxygen_add_docs(doc)

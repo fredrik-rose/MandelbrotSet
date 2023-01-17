@@ -26,6 +26,7 @@ struct IMG_Image
  * \param[in] y The y position (row) to update
  * \param[in] value The new value
  */
+__device__
 static inline void IMG_set_pixel(
     struct IMG_Image *const image,
     const int x,

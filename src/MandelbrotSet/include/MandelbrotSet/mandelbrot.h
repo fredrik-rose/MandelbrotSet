@@ -26,6 +26,7 @@
  *
  * \return Number of iterations needed until divergence is confirmed, max_iterations if no divergence
  */
+__device__
 uint8_t MBROT_mandelbrot(
     const struct CMPLX_Complex c,
     const uint8_t max_iterations)

@@ -2,8 +2,8 @@
 
 <img src="img/mandelbrot.png" width="1000"/>
 
-A C implementation of the Mandelbrot set. The Mandelbrot set is the set of complex numbers `c` for
-which the function
+A CUDA implementation of the Mandelbrot set. The Mandelbrot set is the set of complex numbers `c`
+for which the function
 
 ```
 f(z) = z^2 + c,
@@ -39,13 +39,14 @@ from the [Solarian Programmer](https://solarianprogrammer.com/2013/02/28/mandelb
 
 ## Usage
 
-To build and run the application run the following commands.
+To build and run the application run the following commands (replace `MandelbrotSetGpu` with
+`MandelbrotSetCpu` for the CPU version).
 
 ```
 cmake -G Ninja -S <path to MandelbrotSet> -B build -DCMAKE_BUILD_TYPE=Release
 cd build
 ninja
-./MandelbrotSet
+./MandelbrotSetGpu
 ```
 
 This will generate the Mandelbrot set as an image named `mandelbrot.pgm`. This can be displayed in
@@ -109,6 +110,7 @@ to run the test under two configurations (`Debug` and `RelWithDebInfo` with valg
 The following are required
 
 * gcc
+* cuda
 * cmake
 * ninja
 * doxygen
@@ -133,3 +135,5 @@ sudo apt-get install clang-tidy -y
 sudo apt install valgrind -y
 sudo apt install iwyu -y
 ```
+
+For CUDA please refer to the official documentation.

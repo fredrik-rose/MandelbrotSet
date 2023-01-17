@@ -24,6 +24,7 @@ struct CMPLX_Complex
  *
  * \return x + y
  */
+__device__
 static inline struct CMPLX_Complex CMPLX_add(
     const struct CMPLX_Complex x,
     const struct CMPLX_Complex y)
@@ -43,6 +44,7 @@ static inline struct CMPLX_Complex CMPLX_add(
  *
  * \return x^2
  */
+__device__
 static inline struct CMPLX_Complex CMPLX_square(
     const struct CMPLX_Complex x)
 {
@@ -61,6 +63,7 @@ static inline struct CMPLX_Complex CMPLX_square(
  *
  * \return |x|
  */
+__device__
 static inline double CMPLX_abs(
     const struct CMPLX_Complex x)
 {
