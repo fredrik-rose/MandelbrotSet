@@ -123,17 +123,29 @@ The following are required
 On an Ubuntu system these can be installed with the following commands.
 
 ```
-sudo apt-get update && sudo apt-get upgrade -y
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y \
+    build-essential \
+    gcc g++ \
+    gdb \
+    cmake \
+    ninja-build
+
+sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+sudo apt install -y clang clangd clang-tidy lld libc++-dev libc++abi-dev
+
+sudo apt install -y \
+    doxygen \
+    graphviz \
+    cppcheck \
+    valgrind \
+    iwyu
+
 sudo apt autoremove -y
-sudo apt-get install gcc -y
-sudo apt-get install cmake -y
-sudo apt install ninja-build -y
-sudo apt-get install doxygen -y
-sudo apt install graphviz -y
-sudo apt-get install cppcheck -y
-sudo apt-get install clang-tidy -y
-sudo apt install valgrind -y
-sudo apt install iwyu -y
 ```
 
-For CUDA please refer to the official documentation.
+#### CUDA
+
+To install CUDA on WSL follow this guide:
+https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl-2
