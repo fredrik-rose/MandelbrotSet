@@ -60,4 +60,16 @@ void MBROT_generate_mandelbrot_set(
     const struct MBROT_Range *range,
     uint8_t max_iterations);
 
+/**
+ * \brief Colorize the Mandelbrot set
+ *
+ * \param[in] image The Mandelbrot set image
+ * \param[in] max_iterations The maximum number of iterations used to generate the Mandelbrot set
+ * \param[in,out] color_image The colorized image, the width must be 3x (red, green, blue) of the input image
+ */
+void MBROT_colorize_mandelbrot_set(
+    const struct IMG_Image *const image,
+    const int max_iterations,
+    struct IMG_Image *const color_image);
+
 #endif /* MANDELBROTSET_MANDELBROTSET_H */

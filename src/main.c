@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 #define SAVE_PGM_IMAGE (true)
 #define RESOLUTION_X (1080)
@@ -24,6 +25,7 @@
 #define ZOOM_FACTOR (0.8)
 #define DIVERGE_THRESHOLD (UINT8_MAX)
 #define MANDELBROT_IMAGE_PATH ("mandelbrot.pgm")
+#define MANDELBROT_COLOR_IMAGE_PATH ("mandelbrot_color.ppm")
 
 static void update_range_pan(
     struct MBROT_Range *const range,
@@ -73,25 +75,14 @@ static void update_range_zoom(
 
 static void update_texture_from_image(
     SDL_Texture *const texture,
-    const struct IMG_Image *const image)
+    const struct IMG_Image *const color_image)
 {
+    const size_t size = (size_t)(color_image->width * color_image->height) * sizeof(*color_image->pixels);
     uint8_t *pixels = NULL;
     int pitch = 0;
+
     SDL_LockTexture(texture, NULL, (void**)&pixels, &pitch);
-
-    for (int y = 0; y < RESOLUTION_Y; ++y)
-    {
-        uint8_t *const row = pixels + (ptrdiff_t)y * pitch;
-        for (int x = 0; x < RESOLUTION_X; ++x)
-        {
-            uint8_t v = IMG_get_pixel(image, x, y);
-
-            row[x*3 + 0] = v; // R
-            row[x*3 + 1] = v; // G
-            row[x*3 + 2] = v; // B
-        }
-    }
-
+    memcpy(pixels, color_image->pixels, size);
     SDL_UnlockTexture(texture);
 }
 
@@ -103,7 +94,7 @@ int main(int argv, char *argc[])
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window *const window = SDL_CreateWindow(
-        "Mandelbrot Explorer",
+        "Mandelbrot Set Explorer",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         RESOLUTION_X, RESOLUTION_Y,
         SDL_WINDOW_SHOWN
@@ -119,6 +110,7 @@ int main(int argv, char *argc[])
     );
 
     struct IMG_Image *const image = MBROT_alloc_mandebrot_set_image(RESOLUTION_X, RESOLUTION_Y);
+    struct IMG_Image *const color_image = MBROT_alloc_mandebrot_set_image(RESOLUTION_X * 3, RESOLUTION_Y);
 
     struct MBROT_Range range = {
         .min = {
@@ -187,7 +179,8 @@ int main(int argv, char *argc[])
         }
 
         MBROT_generate_mandelbrot_set(image, &range, DIVERGE_THRESHOLD);
-        update_texture_from_image(texture, image);
+        MBROT_colorize_mandelbrot_set(image, DIVERGE_THRESHOLD, color_image);
+        update_texture_from_image(texture, color_image);
 
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, NULL);
@@ -197,10 +190,11 @@ int main(int argv, char *argc[])
     if (SAVE_PGM_IMAGE)
     {
         PGM_save(image, DIVERGE_THRESHOLD, MANDELBROT_IMAGE_PATH);
+        PPM_save(color_image, DIVERGE_THRESHOLD, MANDELBROT_COLOR_IMAGE_PATH);
     }
 
     MBROT_free_mandebrot_set_image(image);
-
+    MBROT_free_mandebrot_set_image(color_image);
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

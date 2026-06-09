@@ -12,6 +12,7 @@ int main(int argv, char *argc[])
     (void)argc;
 
     struct IMG_Image *const image = MBROT_alloc_mandebrot_set_image(RESOLUTION_X, RESOLUTION_Y);
+    struct IMG_Image *const color_image = MBROT_alloc_mandebrot_set_image(RESOLUTION_X * 3, RESOLUTION_Y);
 
     const struct MBROT_Range range = {
         .min = {
@@ -25,8 +26,10 @@ int main(int argv, char *argc[])
     };
 
     MBROT_generate_mandelbrot_set(image, &range, DIVERGE_THRESHOLD);
+    MBROT_colorize_mandelbrot_set(image, DIVERGE_THRESHOLD, color_image);
 
     MBROT_free_mandebrot_set_image(image);
+    MBROT_free_mandebrot_set_image(color_image);
 
     return 0;
 }

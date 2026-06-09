@@ -42,29 +42,23 @@ To build and run the application run the following commands (replace `Mandelbrot
 `MandelbrotSetCpu` for the CPU version).
 
 ```
-cmake -G Ninja -S <path to MandelbrotSet> -B build -DCMAKE_BUILD_TYPE=Release
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release
 cd build
 ninja
 ./MandelbrotSetGpu
 ```
 
 This will launch an interactive Mandelbrot set visualizer, use the mouse to pan and zoom. It will also save the
-Mandelbrot set as an image named `mandelbrot.pgm`. This can be displayed in e.g. IrfanView (or any other image tool
-that supports .pgm images).
-
-The gray scale Mandelbrot set image produced by the MandelbrotSet application is quite nice but to
-really make it beautiful we need to add some colors. This can be done with the following command:
-
-```
-python color.py --input mandelbrot.pgm --output mandelbrot.png
-```
+Mandelbrot set as a gray image named `mandelbrot.pgm` and a nicer color version named `mandelbrot_color.ppm`. These
+can be displayed in e.g. IrfanView (or any other image tool that supports .pgm and .ppm images). It is the last view
+that is saved, pan and zoom to get your desired image.
 
 ### Documentation
 
 To build the documentation run the following commands.
 
 ```
-cmake -G Ninja -S <path to MandelbrotSet> -B build -DCMAKE_BUILD_TYPE=Release
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release
 cd build
 ninja doc
 ```
@@ -76,7 +70,7 @@ The generated documentation can be found in `html/index.html`.
 To build and run the tests run the following commands.
 
 ```
-cmake -G Ninja -S <path to MandelbrotSet> -B build -DCMAKE_BUILD_TYPE=Debug
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
 cd build
 ninja
 ctest --verbose
@@ -93,7 +87,7 @@ problem occurred as it will contain a detailed call stack.
 To build and run the tests under valgrind run the following commands.
 
 ```
-cmake -G Ninja -S <path to MandelbrotSet> -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
 cd build
 ninja
 ctest -T memcheck --verbose

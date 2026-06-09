@@ -48,6 +48,7 @@ static inline void IMG_set_pixel(
  *
  * \return The pixel
  */
+ __device__
 static inline uint8_t IMG_get_pixel(
     const struct IMG_Image *const image,
     const int x,

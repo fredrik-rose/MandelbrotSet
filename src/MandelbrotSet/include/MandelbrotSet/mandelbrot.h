@@ -6,8 +6,17 @@
 #define MANDELBROTSET_MANDELBROT_H
 
 #include <MandelbrotSet/complex.h>
+#include <MandelbrotSet/image.h>
 
 #include <stdint.h>
+
+__device__
+double m_min(
+    const double a,
+    const double b)
+{
+    return a < b ? a : b;
+}
 
 /**
  * \brief The Mandelbrot function
@@ -45,6 +54,39 @@ uint8_t MBROT_mandelbrot(
     }
 
     return max_iterations;
+}
+
+/**
+ * \brief Colorize a pixel in a Mandelbrot set image
+ *
+ * Uses a variant of the variant of the Bernstein polynomials.
+ *
+ * \param[in] image The Mandelbrot set image
+ * \param[in] x The x-coordinate of the pixel
+ * \param[in] y The y-coordinate of the pixel
+ * \param[in] max_iterations The maximum number of iterations used to generate the Mandelbrot set
+ * \param[in] color_image The color image to write to, the width must be 3x (red, green, blue) of the input image
+ */
+__device__
+void MBROT_colorize_pixel(
+    const struct IMG_Image *const image,
+    const int x,
+    const int y,
+    const int max_iterations,
+    struct IMG_Image *const color_image)
+{
+    const double norm_factor = 1.0 / max_iterations;
+    const uint8_t pixel = IMG_get_pixel(image, x, y);
+
+    const double normalized_pixel = pixel * norm_factor;
+    const double inverse = 1.0 - normalized_pixel;
+    const double red = 9.0 * inverse * normalized_pixel * normalized_pixel * normalized_pixel;
+    const double green = 15.0 * inverse * inverse * normalized_pixel * normalized_pixel;
+    const double blue = 8.5 * inverse * inverse * inverse * normalized_pixel;
+
+    IMG_set_pixel(color_image, x * 3 + 0, y, (uint8_t)m_min(red * max_iterations, max_iterations));
+    IMG_set_pixel(color_image, x * 3 + 1, y, (uint8_t)m_min(green * max_iterations, max_iterations));
+    IMG_set_pixel(color_image, x * 3 + 2, y, (uint8_t)m_min(blue * max_iterations, max_iterations));
 }
 
 #endif /* MANDELBROTSET_MANDELBROT_H */

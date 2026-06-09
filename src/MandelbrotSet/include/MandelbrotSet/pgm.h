@@ -21,4 +21,16 @@ void PGM_save(
     uint8_t max_value,
     const char *file_path);
 
+/**
+ * \brief Save a color image to a PPM file
+ *
+ * \param[in] color_image The image to save
+ * \param[in] max_value The max value of the image (the theoretical max, not necessarily the actual max)
+ * \param[in] file_path The file path to save the image to
+ */
+void PPM_save(
+    const struct IMG_Image *color_image,
+    uint8_t max_value,
+    const char *file_path);
+
 #endif /* MANDELBROTSET_PGM_H */

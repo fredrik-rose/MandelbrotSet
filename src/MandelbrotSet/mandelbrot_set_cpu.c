@@ -63,3 +63,23 @@ void MBROT_generate_mandelbrot_set(
         }
     }
 }
+
+void MBROT_colorize_mandelbrot_set(
+    const struct IMG_Image *const image,
+    const int max_iterations,
+    struct IMG_Image *const color_image)
+{
+    assert(image->width > 0);
+    assert(image->height > 0);
+    assert(color_image->width == image->width * 3);
+    assert(color_image->height == image->height);
+    assert(max_iterations > 0);
+
+    for (int y = 0; y < image->height; ++y)
+    {
+        for (int x = 0; x < image->width; ++x)
+        {
+            MBROT_colorize_pixel(image, x, y, max_iterations, color_image);
+        }
+    }
+}

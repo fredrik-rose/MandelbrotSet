@@ -47,6 +47,26 @@ static void generate_mandelbrot_set_kernel(
     }
 }
 
+__global__
+static void colorize_mandelbrot_set_kernel(
+    const struct IMG_Image *const image,
+    const int max_iterations,
+    struct IMG_Image *const color_image)
+{
+    const int x_start = (blockIdx.x * blockDim.x) + threadIdx.x;
+    const int y_start = (blockIdx.y * blockDim.y + threadIdx.y);
+    const int x_stride = blockDim.x * gridDim.x;
+    const int y_stride = blockDim.y * gridDim.y;
+
+    for (int y = y_start; y < image->height; y += y_stride)
+    {
+        for (int x = x_start; x < image->width; x += x_stride)
+        {
+            MBROT_colorize_pixel(image, x, y, max_iterations, color_image);
+        }
+    }
+}
+
 struct IMG_Image * MBROT_alloc_mandebrot_set_image(
     int width,
     int height)
@@ -84,5 +104,21 @@ void MBROT_generate_mandelbrot_set(
 
     const dim3 threadsPerBlock(THREADS_PER_BLOCK_X, THREADS_PER_BLOCK_Y);
     generate_mandelbrot_set_kernel<<<NUMBER_OF_BLOCKS, threadsPerBlock>>>(image, *range, max_iterations);
+    cudaDeviceSynchronize();
+}
+
+void MBROT_colorize_mandelbrot_set(
+    const struct IMG_Image *const image,
+    const int max_iterations,
+    struct IMG_Image *const color_image)
+{
+    assert(image->width > 0);
+    assert(image->height > 0);
+    assert(color_image->width == image->width * 3);
+    assert(color_image->height == image->height);
+    assert(max_iterations > 0);
+
+    const dim3 threadsPerBlock(THREADS_PER_BLOCK_X, THREADS_PER_BLOCK_Y);
+    colorize_mandelbrot_set_kernel<<<NUMBER_OF_BLOCKS, threadsPerBlock>>>(image, max_iterations, color_image);
     cudaDeviceSynchronize();
 }
