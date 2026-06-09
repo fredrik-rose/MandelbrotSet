@@ -7,6 +7,9 @@ Checks: >
   cppcoreguidelines-*,
   modernize-*,
   readability-*,
+  -bugprone-easily-swappable-parameters,
+  -cppcoreguidelines-macro-to-enum,
+  -modernize-macro-to-enum,
   -readability-identifier-length,
   -readability-magic-numbers,
   -readability-function-size,
@@ -37,6 +40,10 @@ Checks: >
   -misc-include-cleaner,
   -misc-unused-parameters,
   -misc-non-private-member-variables-in-classes
+
+CheckOptions:
+  - key: readability-function-cognitive-complexity.Threshold
+    value: 40
 
 WarningsAsErrors: ''
 HeaderFilterRegex: '.*'

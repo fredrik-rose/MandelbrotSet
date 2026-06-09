@@ -122,3 +122,11 @@ set(DOXYGEN_CALLER_GRAPH YES)
 set(DOXYGEN_FILE_PATTERNS "*.c,*.h,*.cu,*.md")
 set(DOXYGEN_EXTENSION_MAPPING "cu=c++")
 doxygen_add_docs(doc)
+
+find_package(SDL2 REQUIRED)
+
+target_include_directories(${PROJECT_NAME}Cpu PRIVATE ${SDL2_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME}Gpu PRIVATE ${SDL2_INCLUDE_DIRS})
+
+target_link_libraries(${PROJECT_NAME}Cpu PRIVATE ${SDL2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}Gpu PRIVATE ${SDL2_LIBRARIES})

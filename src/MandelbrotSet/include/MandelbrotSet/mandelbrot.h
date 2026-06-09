@@ -35,6 +35,7 @@ uint8_t MBROT_mandelbrot(
 
     for (uint8_t i = 0U; i < max_iterations; ++i)
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers)
         if (CMPLX_abs(f) > 2.0)
         {
             return i;

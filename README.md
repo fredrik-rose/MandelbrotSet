@@ -30,8 +30,7 @@ Mandelbrot set or not as pixels in an image we get the Mandelbrot set image.
 
 A famous aspect of the Mandelbrot set is that you can "zoom" into the image indefinitely at the
 border of the set to see various cool looking geometrical structures. This property is know as a
-*fractal*. Unfortunately this simple application does not support this but it is possible to do a
-static zooming by changing the range parameters in the main file.
+*fractal*.
 
 The color map used for the colored Mandelbrot set image is a variant of the
 [Bernstein polynomials](https://mathworld.wolfram.com/BernsteinPolynomial.html), with inspiration
@@ -49,8 +48,9 @@ ninja
 ./MandelbrotSetGpu
 ```
 
-This will generate the Mandelbrot set as an image named `mandelbrot.pgm`. This can be displayed in
-e.g. IrfanView (or any other image tool that supports .pgm images).
+This will launch an interactive Mandelbrot set visualizer, use the mouse to pan and zoom. It will also save the
+Mandelbrot set as an image named `mandelbrot.pgm`. This can be displayed in e.g. IrfanView (or any other image tool
+that supports .pgm images).
 
 The gray scale Mandelbrot set image produced by the MandelbrotSet application is quite nice but to
 really make it beautiful we need to add some colors. This can be done with the following command:
@@ -111,6 +111,7 @@ The following are required
 
 * gcc
 * cuda
+* SDL2
 * cmake
 * ninja
 * doxygen
@@ -130,7 +131,8 @@ sudo apt install -y \
     gcc g++ \
     gdb \
     cmake \
-    ninja-build
+    ninja-build \
+    libsdl2-dev
 
 sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 sudo apt install -y clang clangd clang-tidy lld libc++-dev libc++abi-dev
