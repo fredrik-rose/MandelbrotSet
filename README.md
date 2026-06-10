@@ -1,6 +1,6 @@
 # Mandelbrot Set
 
-<img src="img/mandelbrot.png" width="1000"/>
+<img src="img/mandelbrot.gif" width="1000"/>
 
 A CUDA implementation of the Mandelbrot set. The Mandelbrot set is the set of complex numbers `c`
 for which the function
